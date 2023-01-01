@@ -8,7 +8,7 @@ let posV = 238, posH = 34 , mPosV = 238, mPosH = 340;
 let arriba, abajo, derecha, izquierda; 
 let HorizontalActivo = false,VerticalActivo = false;
 let vivo = true;
-let dirH= [], dirV = [];
+let dirH = [], dirV = [];
 
 manzana.setAttribute("style","transform: translate( " + mPosH+ "px, " + mPosV + "px)");
 
@@ -22,9 +22,9 @@ setInterval(() => {
         tsnake[cont].classList.add('tsnake');
         tsnake[cont].setAttribute("style","transform: translate(" + mPosH+ "px, " + mPosV + "px);")
         tablero.appendChild((tsnake[cont]));
-        cont++;
+        cont++; 
         mPosV =  (Math.floor(Math.random() * 29) + 1) * pixel;
-        mPosH = (Math.floor(Math.random() * 29) + 1) * pixel;
+        mPosH = (Math.floor(Math.random() * 29) + 1) * pixel;    
         manzana.setAttribute("style","transform: translate(" + mPosH+ "px, " + mPosV + "px)");
         
     }
@@ -88,6 +88,12 @@ tabla.addEventListener("keydown",(e)=>{
                     mover(0,-pixel);
                 }
                 HorizontalActivo = false; VerticalActivo = true;
+                let tiempo = setInterval(() => {
+                    if (abajo == true || izquierda == true || derecha == true) {
+                        clearInterval(timer);
+                        clearInterval(tiempo);
+                    }
+                })
                 let timer = setInterval(() => {
                     if (abajo == true || izquierda == true || derecha == true) {
                        clearInterval(timer);
@@ -109,6 +115,12 @@ tabla.addEventListener("keydown",(e)=>{
                     mover(pixel,0);
                 }
                 HorizontalActivo = true; VerticalActivo = false;
+                let tiempo = setInterval(() => {
+                    if (arriba == true || izquierda == true || abajo == true) {
+                        clearInterval(timer);
+                        clearInterval(tiempo);
+                    }
+                })
                 let timer = setInterval(() => {
                     if (arriba == true || izquierda == true || abajo == true) {
                        clearInterval(timer);
@@ -130,6 +142,12 @@ tabla.addEventListener("keydown",(e)=>{
                     mover(0,pixel);
                 }
                 HorizontalActivo = false; VerticalActivo = true;
+                let tiempo = setInterval(() => {
+                    if (arriba == true || izquierda == true || derecha == true) {
+                        clearInterval(timer);
+                        clearInterval(tiempo);
+                    }
+                })
                 let timer = setInterval(() => {
 
                     if (arriba == true || izquierda == true || derecha == true) {
@@ -152,6 +170,12 @@ tabla.addEventListener("keydown",(e)=>{
                     mover(-pixel,0);
                 }
                 HorizontalActivo = true; VerticalActivo = false;
+                let tiempo = setInterval(() => {
+                    if (arriba == true || abajo == true || derecha == true) {
+                        clearInterval(timer);
+                        clearInterval(tiempo);
+                    }
+                })
                 let timer = setInterval(() => {
                     if (arriba == true || abajo == true || derecha == true) {
                        clearInterval(timer);
