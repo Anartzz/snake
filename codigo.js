@@ -1,9 +1,9 @@
 const pixel = 17;
-const time = 100; 
-const tabla = document.querySelector(".in")
+const time = 100;
 const tablero = document.querySelector(".div1")
 const snake = document.querySelector(".snake") 
-const manzana = document.querySelector(".manzana")  
+const manzana = document.querySelector(".manzana")
+const contador = document.querySelector(".contador")  
 let posV = 238, posH = 34 , mPosV = 238, mPosH = 340;
 let arriba, abajo, derecha, izquierda; 
 let HorizontalActivo = false,VerticalActivo = false;
@@ -12,7 +12,6 @@ let dirH = [], dirV = [];
 
 manzana.setAttribute("style","transform: translate( " + mPosH+ "px, " + mPosV + "px)");
 
-console.log(mPosH + "  " + mPosV)
 let tsnake = [] ; let cont = 0;
 tsnake.push(document.createElement("div"));
 
@@ -26,14 +25,16 @@ setInterval(() => {
         mPosV =  (Math.floor(Math.random() * 29) + 1) * pixel;
         mPosH = (Math.floor(Math.random() * 29) + 1) * pixel;    
         manzana.setAttribute("style","transform: translate(" + mPosH+ "px, " + mPosV + "px)");
-        
+        contador.textContent = cont;
+        console.log(cont)
+        console.log(tsnake.length)
     }
 })
 function mover(H,V) {
     dirH.unshift(posH);
     dirV.unshift(posV);
-    dirH = dirH.slice(0,tsnake.length);
-    dirV = dirV.slice(0,tsnake.length);
+    dirH = dirH.slice(0,tsnake.length-1);
+    dirV = dirV.slice(0,tsnake.length-1);
     for (let i = 0; i < tsnake.length; i++) {
         tsnake[i].setAttribute("style","transform:translate(" + dirH[i] + "px, " + dirV[i] + "px);");
     }
@@ -43,31 +44,31 @@ function mover(H,V) {
 }
 function choque(key) {
     let colision = false;
-    for (let i = 1; i < tsnake.length; i++) {
+    for (let i = 1; i < tsnake.length-1; i++) {
         switch (key) {
             case "ArrowUp" : {
-                if (dirH[i] == posH && (dirV[i] + pixel) == posV){
+                if (dirH[i] == posH && (dirV[i] + pixel) >= posV && (dirV[i] - pixel) < posV){
                     colision = true;
                     i = tsnake.length;
                 }
                 break;
             }
             case "ArrowRight" : {
-                if ((dirH[i] - pixel) == posH && dirV[i] == posV){
+                if ((dirH[i] - pixel) <= posH && (dirH[i] + pixel) > posH && dirV[i] == posV){
                     colision = true;
                     i = tsnake.length;
                 }
                 break;
             }
             case "ArrowDown" : {
-                if (dirH[i] == posH && (dirV[i] - pixel) == posV){
+                if (dirH[i] == posH && (dirV[i] - pixel) <= posV && (dirV[i] + pixel) > posV){
                     colision = true;
                     i = tsnake.length;
                 }
                 break;
             }
             case "ArrowLeft" : {
-                if ((dirH[i] + pixel) == posH && dirV[i] == posV){
+                if ((dirH[i] + pixel) >= posH && (dirH[i] + pixel) < posH && dirV[i] == posV){
                     colision = true;
                     i = tsnake.length;
                 }
@@ -78,7 +79,7 @@ function choque(key) {
     }
     return colision;
 }
-tabla.addEventListener("keydown",(e)=>{
+window.addEventListener("keydown",(e)=>{
     if (vivo) {
         arriba = false, abajo = false, derecha = false, izquierda = false;
         if (e.key == "ArrowUp") {
@@ -191,5 +192,12 @@ tabla.addEventListener("keydown",(e)=>{
                 },time)
             }
         }
+    } else {
+        if (e.key === " ") {
+            location.reload();
+        }
+    }
+    if (e.key === "r") {
+        location.reload();
     }
 });
