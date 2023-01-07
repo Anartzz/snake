@@ -26,8 +26,6 @@ setInterval(() => {
         mPosH = (Math.floor(Math.random() * 29) + 1) * pixel;    
         manzana.setAttribute("style","transform: translate(" + mPosH+ "px, " + mPosV + "px)");
         contador.textContent = cont;
-        console.log(cont)
-        console.log(tsnake.length)
     }
 })
 function mover(H,V) {
