@@ -22,18 +22,30 @@ setInterval(() => {
         tsnake[cont].setAttribute("style","transform: translate(" + mPosH+ "px, " + mPosV + "px);")
         tablero.appendChild((tsnake[cont]));
         cont++; 
-        mPosV =  (Math.floor(Math.random() * 29) + 1) * pixel;
-        mPosH = (Math.floor(Math.random() * 29) + 1) * pixel;    
+        do {
+            mPosV =  (Math.floor(Math.random() * 29) + 1) * pixel;
+            mPosH = (Math.floor(Math.random() * 29) + 1) * pixel;
+        } while (sYmMismaPos(mPosH,mPosV));    
         manzana.setAttribute("style","transform: translate(" + mPosH+ "px, " + mPosV + "px)");
         contador.textContent = cont;
     }
 })
+function sYmMismaPos(mPosH,mPosV) {
+    let misma = false;
+    for (let i = 1; i < tsnake.length-1; i++) {
+        if (mPosH == dirH[i] && mPosV == dirV[i] ) {
+            misma = true;
+            i = ((tsnake.length)-2) + 1;
+        }
+    }
+    return misma
+}
 function mover(H,V) {
     dirH.unshift(posH);
     dirV.unshift(posV);
     dirH = dirH.slice(0,tsnake.length-1);
     dirV = dirV.slice(0,tsnake.length-1);
-    for (let i = 0; i < tsnake.length; i++) {
+    for (let i = 0; i < tsnake.length-1; i++) {
         tsnake[i].setAttribute("style","transform:translate(" + dirH[i] + "px, " + dirV[i] + "px);");
     }
     posH += H;
@@ -66,7 +78,7 @@ function choque(key) {
                 break;
             }
             case "ArrowLeft" : {
-                if ((dirH[i] + pixel) >= posH && (dirH[i] + pixel) < posH && dirV[i] == posV){
+                if ((dirH[i] + pixel) >= posH && (dirH[i] - pixel) < posH && dirV[i] == posV){
                     colision = true;
                     i = tsnake.length;
                 }
@@ -195,7 +207,10 @@ window.addEventListener("keydown",(e)=>{
             location.reload();
         }
     }
-    if (e.key === "r") {
+    if (e.keyCode == 82) {
         location.reload();
     }
 });
+if (cont == 899) {
+    contador.textContent = "enorabuen eres el puto amo";
+}
