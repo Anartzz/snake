@@ -92,7 +92,7 @@ function choque(key) {
 window.addEventListener("keydown",(e)=>{
     if (vivo) {
         arriba = false, abajo = false, derecha = false, izquierda = false;
-        if (e.key == "ArrowUp") {
+        if (e.key == "ArrowUp" || e.key == "k") {
             if (!VerticalActivo) {
                 arriba = true;
                 if (posV > 0) { 
@@ -119,7 +119,7 @@ window.addEventListener("keydown",(e)=>{
                 },time)
             }
         }
-        if (e.key == "ArrowRight") {
+        if (e.key == "ArrowRight" || e.key == "l") {
             if (!HorizontalActivo) {
                 derecha = true;
                 if (posH < 493) {
@@ -146,7 +146,7 @@ window.addEventListener("keydown",(e)=>{
                 },time)
             }
         }
-        if (e.key == "ArrowDown") {
+        if (e.key == "ArrowDown" || e.key == "j") {
             if(!VerticalActivo) {
                 abajo = true;
                 if (posV < 493) {
@@ -174,7 +174,7 @@ window.addEventListener("keydown",(e)=>{
                 },time)
             } 
         }
-        if (e.key == "ArrowLeft") {
+        if (e.key == "ArrowLeft" || e.key == "h") {
             if (!HorizontalActivo) {
                 izquierda = true;
                 if (posH > 0) {
